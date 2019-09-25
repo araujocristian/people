@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import PeopleListItem from '../components/PeopleListItem';
 
-const PeoplePage = () => {
+const PeoplePage = ({navigation: {navigate}}) => {
   const [peoples, setPeoples] = useState([]);
 
   const loadUsers = async () => {
@@ -26,7 +26,14 @@ const PeoplePage = () => {
       <FlatList
         contentContainerStyle={styles.container}
         data={peoples}
-        renderItem={({item}) => <PeopleListItem people={item} />}
+        renderItem={({item}) => (
+          <PeopleListItem
+            people={item}
+            navigateToPeopleDetails={() =>
+              navigate('PeopleDetails', {people: item})
+            }
+          />
+        )}
         keyExtractor={item => item.email}
       />
     </Fragment>
