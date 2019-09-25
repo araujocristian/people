@@ -1,43 +1,30 @@
-import React, {Fragment, useState, useEffect} from 'react';
-import {View, Text, FlatList, StyleSheet} from 'react-native';
-import axios from 'axios';
+import {createAppContainer, createStackNavigator} from 'react-navigation';
+import PeoplePage from './src/pages/PeoplePage';
 
-import Header from './src/components/Header';
-import PeopleListItem from './src/components/PeopleListItem';
-
-const App = () => {
-  const [peoples, setPeoples] = useState([]);
-
-  const loadUsers = async () => {
-    const response = await axios.get(
-      'https://randomuser.me/api/?nat=br&results=5',
-    );
-
-    const {results} = response.data;
-
-    setPeoples(results);
-  };
-
-  useEffect(() => {
-    loadUsers();
-  }, []);
-
-  return (
-    <Fragment>
-      <Header title="Pessoas" />
-      <FlatList
-        contentContainerStyle={styles.container}
-        data={peoples}
-        renderItem={({item}) => <PeopleListItem people={item} />}
-        keyExtractor={item => item.email}
-      />
-    </Fragment>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#e2f9ff',
+const AppNavigator = createStackNavigator(
+  {
+    Main: {
+      screen: PeoplePage,
+    },
   },
-});
-export default App;
+  {
+    defaultNavigationOptions: {
+      title: 'Pessoas',
+      headerStyle: {
+        backgroundColor: '#6ca2f7',
+        borderBottomWidth: 1,
+        borderBottomColor: '#C5C5C5',
+      },
+      headerTitleStyle: {
+        color: '#fff',
+        fontSize: 30,
+        flexGrow: 1,
+        textAlign: 'center',
+      },
+    },
+  },
+);
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default AppContainer;
