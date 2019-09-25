@@ -1,8 +1,9 @@
 import React, {Fragment, useState, useEffect} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, StyleSheet} from 'react-native';
 import axios from 'axios';
 
 import Header from './src/components/Header';
+import PeopleListItem from './src/components/PeopleListItem';
 
 const App = () => {
   const [peoples, setPeoples] = useState([]);
@@ -25,12 +26,18 @@ const App = () => {
     <Fragment>
       <Header title="Pessoas" />
       <FlatList
+        contentContainerStyle={styles.container}
         data={peoples}
-        renderItem={({item}) => <Text>{item.name.first}</Text>}
+        renderItem={({item}) => <PeopleListItem people={item} />}
         keyExtractor={item => item.email}
       />
     </Fragment>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#e2f9ff',
+  },
+});
 export default App;
