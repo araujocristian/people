@@ -20,10 +20,11 @@ const AppNavigator = createStackNavigator(
           name: {first},
         } = people;
         return {
-          title: {first},
+          title: first,
           headerTitleStyle: {
             color: '#fff',
             fontSize: 30,
+            textTransform: 'capitalize',
           },
         };
       },
